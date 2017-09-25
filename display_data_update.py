@@ -14,7 +14,7 @@ from window_template import Ui_MainWindow
 import Adafruit_DHT
 sensor = Adafruit_DHT.DHT22
 pin = 4
-update_interval=1
+update_interval=15
 unit=0
 
 app = QApplication(sys.argv)
