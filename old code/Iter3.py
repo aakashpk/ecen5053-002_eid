@@ -8,7 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-
+import datetime
 import Adafruit_DHT
 
 
@@ -79,7 +79,7 @@ class Ui_MainWindow(object):
         humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
         self.lcdNumber.display(temperature)
         self.lcdNumber_2.display(humidity)
-        #self.label.setText("New Time")
+        self.label.setText(datetime.now())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
