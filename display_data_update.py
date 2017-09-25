@@ -44,7 +44,7 @@ def update_data(): # function to update temp and humidity data on display
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
     
-    if(unit==1): # if unit is set to degF convert value to degF
+    if(unit==1 and temperature!=None): # if unit is set to degF convert value to degF
         temperature=(temperature*1.8)+32 
     
     if(temperature==None): # handling data not being sent
