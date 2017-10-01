@@ -12,8 +12,8 @@ from window_template import Ui_MainWindow
 import sendgrid
 from sendgrid.helpers.mail import *
 
-import Adafruit_DHT
-sensor = Adafruit_DHT.DHT22
+#import Adafruit_DHT
+#sensor = Adafruit_DHT.DHT22
 pin = 4
 
 #initializing all global variables
@@ -62,7 +62,9 @@ def update_data():
     
     threading.Timer(60*update_interval,update_data).start() # to autorun function once every update interval
     
-    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+    temperature=25
+    humidity=55
+    #humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
     ui.label_updateTime.setText(time)
     
@@ -127,7 +129,7 @@ def reset_alarm():
     
 def SendMessage(email):
     """function to send email/message"""
-    global messageSent,temperature,Phone_Num
+    global messageSent,temperature
     
     from_email = Email("Alarms@homeRasPi.com")
     to_email = Email(email)
@@ -136,7 +138,7 @@ def SendMessage(email):
     mail = Mail(from_email, subject, to_email, content)
     sg.client.mail.send.post(request_body=mail.get())
     messageSent=1
-    print("Message sent to ",Phone_Num)
+    print("Message sent to ",email)
     
 update_data()
 update_Inputs()
