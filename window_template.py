@@ -114,7 +114,7 @@ class Ui_MainWindow(object):
         self.AlarmLimt.setText(_translate("MainWindow", "Temperature Alarm limit"))
         self.AlarmLimitIn.setText(_translate("MainWindow", "28"))
         self.RefreshDelay.setText(_translate("MainWindow", "Auto Refresh Delay"))
-        self.RefreshDelIn.setText(_translate("MainWindow", "15"))
+        self.RefreshDelIn.setText(_translate("MainWindow", "1"))
         self.PhNoIn.setText(_translate("MainWindow", "7202298666"))
         self.phno.setText(_translate("MainWindow", "Phone Number"))
         self.ServiceProvider.setText(_translate("MainWindow", "Service Provider"))

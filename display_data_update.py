@@ -17,7 +17,7 @@ from sendgrid.helpers.mail import *
 pin = 4
 
 #initializing all global variables
-update_interval=15 # interval in mins at which data is auto updated
+update_interval=1 # interval in mins at which data is auto updated
 unit=0 # 1 is degF and 0 is degC
 temp_alarm_lim=28
 Phone_Num=7202298666
