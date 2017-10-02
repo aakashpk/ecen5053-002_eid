@@ -12,8 +12,8 @@ from window_template import Ui_MainWindow
 import sendgrid
 from sendgrid.helpers.mail import *
 
-#import Adafruit_DHT
-#sensor = Adafruit_DHT.DHT22
+import Adafruit_DHT
+sensor = Adafruit_DHT.DHT22
 pin = 4
 
 #initializing all global variables
@@ -24,12 +24,13 @@ Phone_Num=7202298666
 email=""
 temperature=22
 messageSent=0
+#dictionary of phone companies and email/text interface
 phoneCompanies={"AT&T":"@txt.att.net","T Mobile":"@tmomail.net",
                     "Sprint":"@messaging.sprintpcs.com","Virgin Mobile":"@vmobl.com",
                     "US Cellular":"@mms.uscc.net","Verizon":"@vtext.com",
                     "C U email":"@colorado.edu"}
 
-
+#setting up UI
 app = QApplication(sys.argv)
 window = QDialog()
 ui = Ui_MainWindow()
@@ -62,9 +63,7 @@ def update_data():
     
     threading.Timer(60*update_interval,update_data).start() # to autorun function once every update interval
     
-    temperature=22.4
-    humidity=55
-    #humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
     ui.label_updateTime.setText(time)
     
@@ -132,7 +131,7 @@ def SendMessage(email):
     """function to send email/message"""
     global messageSent,temperature
     
-    from_email = Email("Alarms@homeRasPi.com")
+    from_email = Email("alarms@HomeRasPi.com")
     to_email = Email(email)
     subject = "***Temperature in Alarm***"
     content = Content("text/plain", "The monitored Temperature is "+str(temperature))
