@@ -38,10 +38,11 @@ https://lifehacker.com/5506326/how-can-i-send-an-email-via-text-message
 
 https://www.youtube.com/watch?v=lcPps6lUK8c
 
-https://github.com/sendgrid/sendgrid-python#quick_start 
+https://github.com/sendgrid/sendgrid-python#quick_startÂ 
+
 https://stackoverflow.com/questions/10875274/change-color-of-lcd-digits-in-qt-designer
- 
+Â 
 https://www.tutorialspoint.com/pyqt/pyqt_qcombobox_widget.htm
- 
+
 https://www.youtube.com/watch?v=5Lb8DZhAAi8
 
