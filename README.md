@@ -9,7 +9,9 @@ Installation Instructions
 Clone github repository from https://github.com/aakashpk/ecen5053-002_Proj1
 The project uses sendgrid for emailing/messaging of alerts
 Install sendgrid python API using pip by running
+
 pip3 install sendgrid
+
 to view ui run the python file display_data_update.py
 
 Project Work
