@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title> Project2 ECEN5053-002 </title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
+<script type="text/javascript" >	
+columnChart();
+</script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+</head>
+
+<body id="full_page">
+<img src =http://i58.tinypic.com/v4mngx.jpg alt="CU Boulder Logo" 
+style="width:175px;height:128px; align:right;float:right"> </img> 
+<h1 style="text-align:center;"> ECEN5053-002 Project 2 </h1>
+<h2 style="text-align:center;">Temperature and Humidity Viewer </h2>
+
+<h4 style="text-align:center;">Connection Status: <div id="conn_status"> </div> </h2> 
+
+<div id="container">
+
+  <div id="basic_display">
+  <h4>Change Unit
+  <input type="radio" name="unit" value="C" checked> &deg;C
+  <input type="radio" name="unit" value="F"> &deg;F </h4>
+  <h2> Current Temperature: <div id="cur_temp"> .. </div>&deg;<div id="temp_unit">C </div></h2> 
+  <h2> Current Humidity: <div id="cur_hum"> ..</div> %RH </h2>
+  <h5> Updated Time: <div id="cur_time"> </div> </h5>
+  <button id="cur_data">Refresh</button>
+  </div>
+  
+  <div id="historic_display">
+  <h4> <button id="get_last_temp">Update</button> Last Temperature: <div id="last_temp"> .. </div>&deg;<div id="temp_unit1">C </div> , timestamp: <div id="last_temp_ts"> ... </div> </h4> 
+  <h4> <button id="get_avg_temp">Update</button> Average Temperature:<div id="avg_temp"> .. </div>&deg;<div id="temp_unit2">C </div> , timestamp: <div id="avg_temp_ts"> ... </div></h4>
+  <h4> <button id="get_max_temp">Update</button> Maximum Temperature:<div id="max_temp"> .. </div>&deg;<div id="temp_unit3">C </div> , timestamp: <div id="max_temp_ts"> ... </div></h4>
+  <h4> <button id="get_min_temp">Update</button> Minimum Temperature:<div id="min_temp"> .. </div>&deg;<div id="temp_unit4">C </div> , timestamp: <div id="min_temp_ts"> ... </div></h4>
+ 
+  <h4> <button id="get_last_hum">Update</button> Last Humidity: <div id="last_hum"> .. </div> %RH , timestamp: <div id="last_hum_ts"> ... </div></h4> 
+  <h4> <button id="get_avg_hum">Update</button> Average Humidity: <div id="avg_hum"> .. </div> %RH , timestamp: <div id="avg_hum_ts"> ... </div></h4>
+  <h4> <button id="get_max_hum">Update</button> Maximum Humidity: <div id="max_hum"> ..</div> %RH , timestamp: <div id="max_hum_ts"> ... </div></h4>
+  <h4> <button id="get_min_hum">Update</button> Minimum Humidity: <div id="min_hum"> ..</div> %RH , timestamp: <div id="min_hum_ts"> ... </div></h4>
+  </div>
+</div>
+
+
+<div id="chartContainer" style="height: 370px; width: 50%;"></div>
+
+
+</body>
+</html>
