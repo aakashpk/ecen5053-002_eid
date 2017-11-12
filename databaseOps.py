@@ -11,7 +11,10 @@ import sensorRead as sensorRead
 
 dbSamplingInterval=5 # interval in seconds when data is updated in the database
 
-db = TinyDB('proj2Db.json')
+db = TinyDB('proj3Db.json')
+
+def purgeDb():
+    db.purge_tables()
 
 def getData(unit):
     """ function to get latest data from sensors , 
@@ -95,17 +98,18 @@ def addDataToDb():
     global dbSamplingInterval,docId
     
     threading.Timer(dbSamplingInterval,addDataToDb).start() # to autorun function once every update interval
-    
+    curTime=datetime.now()
     humidity, temperature = sensorRead.get_TempHum() #read temperature and humidity
     if(temperature==None):
         temperature=-1
     if(humidity==None):
         humidity=-1
-    db.insert({'timestamp_year': datetime.now().year,'timestamp_month': datetime.now().month,
-               'timestamp_day': datetime.now().day,'timestamp_hour': datetime.now().hour,
-               'timestamp_minute': datetime.now().minute,'timestamp_second': datetime.now().second,
+    db.insert({'timestamp_year': curTime.year,'timestamp_month': curTime.month,
+               'timestamp_day': curTime.day,'timestamp_hour': curTime.hour,
+               'timestamp_minute': curTime.minute,'timestamp_second': curTime.second,
                'temperature':temperature,'humidity':humidity})
-
+    print("Adding to DB at: ",curTime," T: ",temperature," H: ",humidity)
+    
 def getDateTime(ts):
     """Converts the multiple key/values from db into single time stamp of the datetime type"""
     return datetime(ts['timestamp_year'],ts['timestamp_month'],ts['timestamp_day'],

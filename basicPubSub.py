@@ -21,11 +21,14 @@ import logging
 import time
 import argparse
 import sensorRead
+import databaseOps
 from datetime import datetime
 import threading
 
 dbSamplingInterval=5
 sensorRead.getData()
+databaseOps.purgeDb()
+databaseOps.addDataToDb()
 
 # Custom MQTT message callback
 def customCallback(client, userdata, message):
