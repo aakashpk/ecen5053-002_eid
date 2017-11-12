@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 #import pandas as pd
 import numpy as np
 from pylab import *
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
+
 sqs = boto3.client('sqs', region_name='us-west-2',
                    aws_access_key_id = 'AKIAJNQ4FNHFZP437GIQ',
                    aws_secret_access_key = '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')
@@ -57,10 +60,21 @@ x3 = []
 x4 = []
 #plt.subplot(2,1,1)
 #plt.subplot(2,1,2)
-for i in range (0,10):
-         message = response['Messages'][i]
-         print('Received message is  %s' %message)
-         #Spliting string and taking timestamp value
+#print(response)
+response['Messages']=(response['Messages']+response1['Messages']+response2['Messages'])
+print(len(response['Messages']))
+
+"""
+
+for r in response['Messages']:    
+    pp.pprint(response['Messages'])
+"""
+for i in range (0,30):
+    message = response['Messages'][i]['Body']
+    print('Received message is  %s' %message)
+        
+"""
+        #Spliting string and taking timestamp value
          body = response['Messages'][i]['Body']
          print('\n The body content is %s' %body)
          x = body.split(",")
@@ -83,6 +97,7 @@ for i in range (0,10):
              plt.plot([x1e] * len(x2e), x2e)
          #for x1e, x5e in zip(x1,x5):
              #plt.plot([x1e] *len(x5e), x5e)
+
 #for x3e,x4e in zip(x3,x4):
 #    plt.plot(x3e *len(x4e), x4e)
 plt.xlabel('Time(sec)')
@@ -153,3 +168,4 @@ for k in range (0,10):
 #plt.grid()
 #plt.gcf().autofmt_xdate()
 #plt.show()
+"""
