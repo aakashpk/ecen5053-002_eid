@@ -16,7 +16,7 @@ temperature=25, humidity=50
 
 def getData():
     global temperature,humidity
-	threading.Timer(2,getData).start()
+    threading.Timer(2,getData).start()
     temperature, humidity=Adafruit_DHT.read_retry(sensor, pin)
     print("data read at ",datetime.now(),": T is :",temperature,"H is: ",humidity)
 
