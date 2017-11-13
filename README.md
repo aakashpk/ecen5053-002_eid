@@ -36,6 +36,7 @@
 * SMS Alerts using AWS SNS on High and Low Humidity
 * SMS Alert on sensor disconnection - this is differentiated from the high or low alarm
 * Led Alert on sensor disconnection
+* Buzzer Sounding on High Temperature
 
 
 ## References
