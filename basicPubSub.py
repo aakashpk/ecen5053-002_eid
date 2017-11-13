@@ -32,11 +32,11 @@ databaseOps.addDataToDb()
 
 # Custom MQTT message callback
 def customCallback(client, userdata, message):
-	print("Received a new message: ")
+	#print("Received a new message: ")
 	print(message.payload)
-	print("from topic: ")
+	print(" topic: ")
 	print(message.topic)
-	print("--------------\n\n")
+	#print("--------------\n\n")
 
 #Paths for certificates
 host = 'a3c1qeo00yd0b1.iot.us-west-2.amazonaws.com' 
