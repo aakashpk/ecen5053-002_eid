@@ -6,13 +6,8 @@
 
 ## Installation Instructions 
 * Clone github repository from https://github.com/aakashpk/ecen5053-002-Proj3
-* The project uses sendgrid for emailing/messaging of alerts Install sendgrid python API using pip by running
-
-* pip3 install sendgrid
-
-* Uses tinydb as the database, can be installed by running 
-
-* pip3 install tinydb 
+* The project uses sendgrid for emailing/messaging of alerts Install sendgrid python API using pip by running `pip3 install sendgrid`
+* Uses tinydb as the database, can be installed by running `pip3 install tinydb` 
 
 ### Run Instructions
 * run `python3 basicPubSub.py` to start the data publish to AWS
