@@ -38,40 +38,18 @@ def customCallback(client, userdata, message):
 	print(message.topic)
 	print("--------------\n\n")
 
-# Read in command-line parameters
-parser = argparse.ArgumentParser()
-parser.add_argument("-e", "--endpoint", action="store", required=True, dest="host", help="Your AWS IoT custom endpoint")
-parser.add_argument("-r", "--rootCA", action="store", required=True, dest="rootCAPath", help="Root CA file path")
-parser.add_argument("-c", "--cert", action="store", dest="certificatePath", help="Certificate file path")
-parser.add_argument("-k", "--key", action="store", dest="privateKeyPath", help="Private key file path")
-parser.add_argument("-w", "--websocket", action="store_true", dest="useWebsocket", default=False,
-                    help="Use MQTT over WebSocket")
-parser.add_argument("-id", "--clientId", action="store", dest="clientId", default="basicPubSub", help="Targeted client id")
-parser.add_argument("-t", "--topic", action="store", dest="topic", default="sdk/test/Python", help="Targeted topic")
-
-#args = parser.parse_args()
-host = 'a3c1qeo00yd0b1.iot.us-west-2.amazonaws.com' #args.host
-rootCAPath = 'root-CA.crt' #args.rootCAPath
-certificatePath = 'raspberry-pi.cert.pem' #args.certificatePath
-privateKeyPath = 'raspberry-pi.private.key' #args.privateKeyPath
-useWebsocket = False #args.useWebsocket
-clientId = 'basicPubSub' #args.clientId
-#topic = args.topic
+#Paths for certificates
+host = 'a3c1qeo00yd0b1.iot.us-west-2.amazonaws.com' 
+rootCAPath = 'root-CA.crt' 
+certificatePath = 'raspberry-pi.cert.pem' 
+privateKeyPath = 'raspberry-pi.private.key' 
+useWebsocket = False 
+clientId = 'basicPubSub' 
 topic='proj3/rpi'
-
-"""
-if args.useWebsocket and args.certificatePath and args.privateKeyPath:
-	parser.error("X.509 cert authentication and WebSocket are mutual exclusive. Please pick one.")
-	exit(2)
-
-if not args.useWebsocket and (not args.certificatePath or not args.privateKeyPath):
-	parser.error("Missing credentials for authentication.")
-	exit(2)
-"""
 
 # Configure logging
 logger = logging.getLogger("AWSIoTPythonSDK.core")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)  #logging.DEBUG
 streamHandler = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 streamHandler.setFormatter(formatter)
@@ -111,13 +89,3 @@ def publishTempHumidity():
     myAWSIoTMQTTClient.publish(topic, msg, 1)
 
 publishTempHumidity() # send temperature and humidity
-
-
-'''
-# Publish to the same topic in a loop forever
-loopCount = 0
-while True:
-	myAWSIoTMQTTClient.publish(topic, "New Message " + str(loopCount), 1)
-	loopCount += 1
-	time.sleep(1)
-'''

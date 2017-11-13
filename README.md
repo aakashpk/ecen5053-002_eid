@@ -33,3 +33,11 @@
 * SMS Alerts using AWS SNS on High and Low Temperature
 * SMS Alerts using AWS SNS on High and Low Humidity
 * SMS Alert on sensor disconnection - this is differentiated from the high or low alarm
+* 
+
+## References
+* http://www.fhilitski.com/2016/11/temperature-sensor-with-raspberry-pi-3-and-aws/  help with AWS data push
+* base code for AWS data push from AWS sample code
+* http://docs.aws.amazon.com/iot/latest/developerguide/iot-lambda-rule.html AWS help to setup IOT rule, and other AWS documentation pages
+* http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html
+* http://www.codexpedia.com/node-js/amazon-simple-queue-service-sqs-example-in-node-js/
