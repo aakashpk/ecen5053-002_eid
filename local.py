@@ -61,21 +61,21 @@ def update_data():
     global update_interval,temperature,unit
     
     threading.Timer(update_interval,update_data).start() # to autorun function once every update interval
-    
-    temperature = sensorRead.temperature
-    humidity= sensorRead.humidity
+    rec=db.all()[-1]
+    temperature = rec["temperature"]
+    humidity= rec["humidity"]
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
     ui.label_updateTime.setText(time)
     
     if(unit==1 and temperature!=None): # if unit is set to degF convert temperature to degF
         temperature=sensorRead.todegF(temperature) 
     
-    if(temperature==None): # handling data not being sent
+    if(temperature==-99): # handling data not being sent
         ui.lcd_temperature.display("Err")
     else:
         ui.lcd_temperature.display(temperature)
    
-    if(humidity==None): # handling data not being sent
+    if(humidity==-99): # handling data not being sent
         ui.lcd_humidity.display("Err")
     else:
         ui.lcd_humidity.display(humidity)
