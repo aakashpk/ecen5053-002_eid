@@ -13,7 +13,7 @@ import RPi.GPIO as gpio
 sensor = Adafruit_DHT.DHT22
 pin = 4
 led= 26
-gpio.setmode(gpio.BOARD)
+gpio.setmode(gpio.BCM)
 gpio.setup(led,gpio.OUT,initial=gpio.HIGH)
 
 temperature=26
