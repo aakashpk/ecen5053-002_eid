@@ -12,8 +12,8 @@ from datetime import datetime
 sensor = Adafruit_DHT.DHT22
 pin = 4
 
-temperature=25
-humidity=50
+temperature=26
+humidity=51
 
 def getData():
     global temperature,humidity

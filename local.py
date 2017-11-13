@@ -62,7 +62,8 @@ def update_data():
     
     threading.Timer(update_interval,update_data).start() # to autorun function once every update interval
     
-    humidity, temperature = sensorRead.get_TempHum()
+    temperature = sensorRead.temperature
+    humidity= sensorRead.humidity
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
     ui.label_updateTime.setText(time)
     
