@@ -61,7 +61,7 @@ def update_data():
     global update_interval,temperature,unit
     
     threading.Timer(update_interval,update_data).start() # to autorun function once every update interval
-    rec=db.all()[-1]
+    rec=dbops.db.all()[-1]
     temperature = rec["temperature"]
     humidity= rec["humidity"]
     time=datetime.now().strftime('%b-%d-%Y %H:%M:%S')
