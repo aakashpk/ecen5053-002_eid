@@ -180,6 +180,7 @@ def set_alarm():
 "    background-color: rgb(255, 0, 0);\n"
 "}")
     temp_alarm=1
+    sensorRead.buzzerOn()
     print("\nTemperature In Alarm \n")
     if(messageSent==0):
         SendMessage(email)
@@ -189,6 +190,7 @@ def reset_alarm():
     """reset alarm to 0 and change back colour of LCD"""
     global temp_alarm,messageSent
     temp_alarm=0
+    sensorRead.buzzerOff()
     messageSent=0
     ui.lcd_temperature.setStyleSheet("QLCDNumber{\n"
 "    color: rgb(0, 0, 0);    \n"

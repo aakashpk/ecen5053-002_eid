@@ -35,7 +35,8 @@
 * SMS Alerts using AWS SNS on High and Low Temperature
 * SMS Alerts using AWS SNS on High and Low Humidity
 * SMS Alert on sensor disconnection - this is differentiated from the high or low alarm
-* 
+* Led Alert on sensor disconnection
+
 
 ## References
 * http://www.fhilitski.com/2016/11/temperature-sensor-with-raspberry-pi-3-and-aws/  help with AWS data push
