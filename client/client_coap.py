@@ -1,28 +1,37 @@
 import logging
 import asyncio
+import sqs_pull
+from datetime import datetime
 
 from aiocoap import *
 
 logging.basicConfig(level=logging.INFO)
 
-def coap_getResponse():
+ipaddress="localhost"
+
+async def coap_response():
     
     protocol = await Context.create_client_context()
 
-    #await asyncio.sleep(2)
-
-    payload = b"The quick brown fox jumps over the lazy dog.\n" * 30
-    #request = Message(code=PUT, payload=payload)
-    # These direct assignments are an alternative to setting the URI like in
-    # the GET example:
-    #request.opt.uri_host = '192.168.43.185'
-    #request.opt.uri_path = ("other", "block")
+    await asyncio.sleep(2)
     
-    msg = Message(code=PUT, uri="coap://192.168.43.185/other/block", payload=payload)
+    queue,length=sqs_pull.getSqsQueue()
+    payload = str(queue).encode('utf-8')
     
+    msg = Message(code=PUT, uri="coap://"+ipaddress+"/other/block", payload=payload)
+    
+    starttime=int(datetime.now().strftime("%f") )
     response = await protocol.request(msg).response
+    endtime=int(datetime.now().strftime("%f"))
+    #print('Result: %s\n%r'%(response.code, response.payload))
+    print("Round Trip of ",length, "SQS messages")
+    diff=endtime-starttime
+    if(diff<0):
+        diff=(1000000+diff)
+    
+    rtt=(diff)/1000
+    print("Time Taken",rtt,"mS")
+    return rtt
 
-    print('Result: %s\n%r'%(response.code, response.payload))
     
-    
-coap_getResponse()
+#print(asyncio.get_event_loop().run_until_complete(coap_response()))

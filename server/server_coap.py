@@ -33,9 +33,11 @@ class BlockResource(resource.Resource):
 
     def set_content(self, content):
         self.content = content
+        """
         while len(self.content) <= 1024:
             self.content = self.content + b"0123456789\n"
-
+        """
+        
     async def render_get(self, request):
         return aiocoap.Message(payload=self.content)
 

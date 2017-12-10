@@ -77,24 +77,3 @@ def publishMessage(message,topic):
     global starttime
     starttime=int(datetime.now().strftime("%f") )
     myAWSIoTMQTTClient.publish(topic, message, 0)
-
-
-#queue,length=sqs_pull.getSqsQueue()   
-#print(queue)
-
-
-#publishMessage(str(queue),pubtopic)
-"""
-while True:
-    time.sleep(1)
-"""    
-"""
-while True:
-    #time.sleep(1)
-    global starttime
-    message='"loopNum": "{}"'.format(loop)
-    starttime=int(datetime.now().strftime("%f") )
-    publishMessage(message,pubtopic)
-    loop+=1
-    time.sleep(1)
-""" 

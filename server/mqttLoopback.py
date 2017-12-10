@@ -30,13 +30,10 @@ dbSamplingInterval=5
 
 # Custom MQTT message callback
 def customCallback(client, userdata, message):
-    #print("Received a new message: ")
-    #publishBack(message.payload,pubtopic)
-    print(message.payload)
-    print(" topic: ")
-    print(message.topic)
     publishBack(str(message.payload,'utf-8'),pubtopic)
-    #print("--------------\n\n")
+    print("payload received on",message.topic," with length ",len(message.payload))
+    print("publishing back on",pubtopic)
+
 
 #Paths for certificates
 host = 'a3c1qeo00yd0b1.iot.us-west-2.amazonaws.com' 
