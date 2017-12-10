@@ -2,17 +2,38 @@
 
 ## Aakash Kumar/ Hari Shreenivash
 
+### Install Instuctions
+* `pip install AWSIoTPythonSDK`
+* `pip install boto3`
+* `pip install aiocoap`
+* `pip install linkheader`
+* `pip install pika`
+* `sudo apt-get install rabbitmq-server`
 
-
-
-### Instructions
+### Run Instructions
 #### On Server
-* Run publishtoAWS
-* Run mqttloopback
-* Run coap server
-* Run websocket server
+* Start sending data to AWS by running publishtoAWS
+* Start mqtt loopback of messages using AWS by running mqttloopback
+* Start coap server by running coap server
+* Start websocket server by running websocket server
+* Start Rabbit MQ broker by running sudo rabbitmq-server start
 * Run local qt gui if display required
 
+### Extra Credit
+* AMQP protocol using Rabbit MQ
 
+### Project Work
+#### Aakash Kumar
+* MQTT
+* CoAP
+* AMQP
 
+#### Hari Shreenivash
+* Websockets
+* Qt GUI
+
+#### Refferences
+* aiocoap usage http://aiocoap.readthedocs.io/en/latest/examples.html
+* websocket client in python http://code.activestate.com/recipes/579076-simple-web-socket-client-implementation-using-torn/
+* Rabbit MQ documetation https://www.rabbitmq.com/tutorials/tutorial-one-python.html
 
