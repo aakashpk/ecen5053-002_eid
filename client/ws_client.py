@@ -143,7 +143,7 @@ def WebSocketResponse():
     global rtt,client
     client = TestWebSocketClient()
     #echo.websocket.org
-    client.connect('ws://localhost:8080/ws')
+    client.connect('ws://192.168.43.185:8080/ws')
        
     ioloop.IOLoop.instance().start()
     return rtt

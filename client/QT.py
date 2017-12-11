@@ -7,8 +7,7 @@ import mqttcalc
 import client_coap
 import asyncio
 import sqs_pull
-import wsclient
-from wsclient import WebSocketClient, TestWebSocketClient
+import ws_client
 from datetime import datetime
 import time
 
@@ -292,35 +291,27 @@ def button4_clicked():
     print('Execute Protocol Test button is clicked')
     mq = (mqttcalc.getMqttTime())
     coap = (asyncio.get_event_loop().run_until_complete(client_coap.coap_response()))
-    web = WebSocketClient()
-    test = TestWebSocketClient()
-    starttime = test.start_time()
-    print('starttime is %s' %starttime)
-    endtime = web.end_time()
-    print('endtime is %s' %endtime)
-    rtt =  (float (endtime) - float(starttime))
-    
-    
-    print('The rtt  of websocket is %s ms' %abs(rtt))
-    
-    
+    web = ws_client.WebSocketResponse()
+           
+           
     #Graph functionality with static values
     rtt1 = mq  #MQTT
     rtt2 = coap  #Websocket
-    
-    rtt4 = 120 #AMQP
+    rtt3= web
+    rtt4 = 1 #AMQP
     
     #print(' The rtt is %s ms' %q.rtt)
     plt.xlabel('Protocols')
-    plt.ylabel('RTT in ms')
+    plt.ylabel('Time Taken in seconds')
     p1 = plt.plot('MQTT',rtt1,'rs')
     p2 = plt.plot('CoAP',rtt2,'bo')
-    p3 = plt.plot('Websocket',abs(rtt),'g+')
-    p4 = plt.plot('AMQP',rtt4,'c*')
+    p3 = plt.plot('Websocket',rtt3,'g+')
+    #p4 = plt.plot('AMQP',rtt4,'c*')
     plt.title('Performance analysis')
     plt.grid()
     plt.legend(loc = 'best')
-    plt.legend((p1[0],p2[0],p3[0],p4[0]), ('MQTT','CoAP','WebSocket','AMQP'))
+    plt.legend((p1[0],p2[0],p3[0]), ('MQTT','CoAP','WebSocket'))
+    #plt.legend((p1[0],p2[0],p3[0],p4[0]), ('MQTT','CoAP','WebSocket','AMQP'))
     plt.show()     
 
 
