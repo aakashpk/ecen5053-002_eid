@@ -297,9 +297,15 @@ def button4_clicked():
            
            
     #Graph functionality with static values
+    print("Getting MQTT DATA -----------------------------")
     rtt1 = mq  #MQTT
+    print("Getting CoAP DATA -----------------------------")
     rtt2 = coap  #Websocket
+    
+    print("Getting WebSockets DATA -----------------------------")
     rtt3= web
+    
+    print("Getting AMQP DATA -----------------------------")
     rtt4 = amqp #AMQP
     
     #print(' The rtt is %s ms' %q.rtt)
