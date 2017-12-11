@@ -14,7 +14,6 @@
 * `pip3 install tornado`
 * `pip3 install pika`
 * `sudo apt-get install rabbitmq-server`
-* 
 
 ### Run Instructions
 #### On Server
