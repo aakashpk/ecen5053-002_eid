@@ -28,6 +28,12 @@ def customCallback(client, userdata, message):
     print("Time Taken",rtt,"mS")
     return rtt
     
+
+def publishMessage(message,topic):
+    global starttime
+    starttime=int(datetime.now().strftime("%f") )
+    myAWSIoTMQTTClient.publish(topic, message, 0)    
+    
 def getMqttTime():
     queue,length=sqs_pull.getSqsQueue()
     publishMessage(str(queue),pubtopic)
@@ -74,8 +80,3 @@ myAWSIoTMQTTClient.configureMQTTOperationTimeout(5)  # 5 sec
 myAWSIoTMQTTClient.connect()
 myAWSIoTMQTTClient.subscribe(subtopic, 1, customCallback)
 
-
-def publishMessage(message,topic):
-    global starttime
-    starttime=int(datetime.now().strftime("%f") )
-    myAWSIoTMQTTClient.publish(topic, message, 0)

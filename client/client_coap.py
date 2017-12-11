@@ -26,6 +26,8 @@ async def coap_response():
     #print('Result: %s\n%r'%(response.code, response.payload))
     print("Round Trip of ",length, "SQS messages")
     diff=endtime-starttime
+    print("Start Time: ",starttime)
+    print("End Time: ",endtime)
     if(diff<0):
         diff=(1000000+diff)
     
