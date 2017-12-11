@@ -9,17 +9,19 @@ Created on Sat Dec  9 23:24:44 2017
 #import client_coap
 #import asyncio
 
-#import amqp_send
+import amqp_send
 import sqs_pull
 import time
-import ws_client
+#import ws_client
 
-print(ws_client.WebSocketResponse())
-"""
+
+#print(ws_client.WebSocketResponse())
+
 
 print("AMQP time")
 print(amqp_send.AMQP_test())
 
+"""
 print("CoAP time")
 print(asyncio.get_event_loop().run_until_complete(client_coap.coap_response()))
 

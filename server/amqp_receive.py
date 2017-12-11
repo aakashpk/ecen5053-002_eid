@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 import pika
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('10.201.18.143'))
-#192.168.43.98
-channel = connection.channel()
+credentials = pika.PlainCredentials('project4', 'abcd')
+connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.43.189',credentials=credentials))
+#192.168.43.189
 
+channel = connection.channel()
 
 channel.queue_declare(queue='transmit')
 channel.queue_declare(queue='receive')

@@ -4,7 +4,8 @@ import sqs_pull
 from datetime import datetime
 import time
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('10.201.18.143'))
+credentials = pika.PlainCredentials('project4', 'abcd')
+connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.43.189',credentials=credentials))
 #10.201.18.143
 channel = connection.channel()
 
