@@ -2,7 +2,7 @@
 import pika
 
 credentials = pika.PlainCredentials('project4', 'abcd')
-connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.43.189',credentials=credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.43.189',credentials=credentials,blocked_connection_timeout=300))
 #192.168.43.189
 
 channel = connection.channel()
