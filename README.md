@@ -7,8 +7,10 @@
 * `pip install boto3`
 * `pip install aiocoap`
 * `pip install linkheader`
+* `pip install tornado`
 * `pip install pika`
 * `sudo apt-get install rabbitmq-server`
+
 
 ### Run Instructions
 #### On Server

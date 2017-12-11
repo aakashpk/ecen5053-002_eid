@@ -8,6 +8,7 @@ Created on Sat Dec  9 23:24:44 2017
 import mqttcalc
 import client_coap
 import asyncio
+import amqp_send
 
 """
 import sqs_pull
@@ -22,6 +23,9 @@ mqttcalc.publishMessage(str(queue),pubtopic)
 
 time.sleep(5)
 """
+print("AMQP time")
+print(amqp_send.AMQP_test())
+
 print("MQTT time")
 print(mqttcalc.getMqttTime())
 

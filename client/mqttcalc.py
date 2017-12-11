@@ -19,6 +19,8 @@ def customCallback(client, userdata, message):
     endtime=int(datetime.now().strftime("%f"))
     #print("Received a new message: ")
     diff=endtime-starttime
+    print("Start Time:",starttime)
+    print("End Time:",endtime)
     if(diff<0):
         diff=(1000000+diff)
     
@@ -44,7 +46,7 @@ pubtopic='proj4/tx'
 
 # Configure logging
 logger = logging.getLogger("AWSIoTPythonSDK.core")
-logger.setLevel(logging.INFO)  #logging.DEBUG
+logger.setLevel(logging.NOTSET)  #logging.DEBUG
 streamHandler = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 streamHandler.setFormatter(formatter)
