@@ -39,3 +39,4 @@
 * websocket client in python http://code.activestate.com/recipes/579076-simple-web-socket-client-implementation-using-torn/
 * Rabbit MQ documetation https://www.rabbitmq.com/tutorials/tutorial-one-python.html
 
+cd /mnt/d/UCBoulder/Acads/Sem_1/5053-002_Embedded_interface_design/Projects/Proj4/ecen5053-002-Proj4/

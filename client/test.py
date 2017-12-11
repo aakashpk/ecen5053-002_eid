@@ -5,26 +5,15 @@ Created on Sat Dec  9 23:24:44 2017
 @author: Aakash
 """
 
-import mqttcalc
-import client_coap
-import asyncio
-"""
-import amqp_send
+#import mqttcalc
+#import client_coap
+#import asyncio
 
-"""
+import amqp_send
 import sqs_pull
 import time
 
-pubtopic='proj4/tx'
 
-queue,length=sqs_pull.getSqsQueue()
-
-
-mqttcalc.publishMessage(str(queue),pubtopic)
-
-time.sleep(5)
-
-"""
 print("AMQP time")
 print(amqp_send.AMQP_test())
 """
@@ -35,3 +24,4 @@ print(mqttcalc.getMqttTime())
 
 print("CoAP time")
 print(asyncio.get_event_loop().run_until_complete(client_coap.coap_response()))
+"""
