@@ -2,6 +2,7 @@ import logging
 import asyncio
 import sqs_pull
 from datetime import datetime
+import time
 
 from aiocoap import *
 
@@ -20,19 +21,15 @@ async def coap_response():
     
     msg = Message(code=PUT, uri="coap://"+ipaddress+"/other/block", payload=payload)
     
-    starttime=int(datetime.now().strftime("%f") )
+    starttime=time.time()
     response = await protocol.request(msg).response
-    endtime=int(datetime.now().strftime("%f"))
+    endtime=time.time()
     #print('Result: %s\n%r'%(response.code, response.payload))
     print("Round Trip of ",length, "SQS messages")
-    diff=endtime-starttime
+    rtt=endtime-starttime
     print("Start Time: ",starttime)
     print("End Time: ",endtime)
-    if(diff<0):
-        diff=(1000000+diff)
-    
-    rtt=(diff)/1000
-    print("Time Taken",rtt,"mS")
+    print("Time Taken",rtt,"Seconds")
     return rtt
 
     

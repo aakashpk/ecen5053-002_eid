@@ -16,29 +16,14 @@ rtt=0
 # Custom MQTT message callback
 def customCallback(client, userdata, message):
     global starttime,endtime,rtt
-    endtime=int(datetime.now().strftime("%f"))
+    endtime=time.time()
     #print("Received a new message: ")
-    diff=endtime-starttime
-    print("Start Time:",starttime)
-    print("End Time:",endtime)
-    if(diff<0):
-        diff=(1000000+diff)
-    
-    rtt=(diff)/1000
-    print("Time Taken",rtt,"mS")
+    rtt=endtime-starttime
+    print("Start Time: ",starttime)
+    print("End Time: ",endtime)
+    print("Time Taken",rtt,"seconds")
     return rtt
     
-
-def publishMessage(message,topic):
-    global starttime
-    starttime=int(datetime.now().strftime("%f") )
-    myAWSIoTMQTTClient.publish(topic, message, 0)    
-    
-def getMqttTime():
-    queue,length=sqs_pull.getSqsQueue()
-    publishMessage(str(queue),pubtopic)
-    time.sleep(5)
-    return rtt
 
 #Paths for certificates
 host = 'a3c1qeo00yd0b1.iot.us-west-2.amazonaws.com' 
@@ -75,6 +60,22 @@ myAWSIoTMQTTClient.configureOfflinePublishQueueing(-1)  # Infinite offline Publi
 myAWSIoTMQTTClient.configureDrainingFrequency(2)  # Draining: 2 Hz
 myAWSIoTMQTTClient.configureConnectDisconnectTimeout(10)  # 10 sec
 myAWSIoTMQTTClient.configureMQTTOperationTimeout(5)  # 5 sec
+
+
+def publishMessage(message,topic):
+    global starttime
+    print("publish message")
+    starttime=time.time()
+    myAWSIoTMQTTClient.publish(topic, message, 0)    
+    
+def getMqttTime():
+    queue,length=sqs_pull.getSqsQueue()
+    print("getmqtt")
+    publishMessage(str(queue),pubtopic)
+    time.sleep(5)
+    return rtt
+
+
 
 # Connect and subscribe to AWS IoT
 myAWSIoTMQTTClient.connect()
