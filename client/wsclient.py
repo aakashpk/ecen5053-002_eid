@@ -18,13 +18,13 @@ APPLICATION_JSON = 'application/json'
 DEFAULT_CONNECT_TIMEOUT = 60
 DEFAULT_REQUEST_TIMEOUT = 60
 
-global starttime,endtime
-starttime = datetime.now().strftime("%f")
+global starttime,endtime,roundtriptime
+
  
 class WebSocketClient():
     """Base for web socket clients.
     """
- 
+    global roundtriptime,starttime,endtime
     def __init__(self, *, connect_timeout=DEFAULT_CONNECT_TIMEOUT,
                  request_timeout=DEFAULT_REQUEST_TIMEOUT):
 
@@ -84,6 +84,7 @@ class WebSocketClient():
                 self._on_message(msg)
             if (msg  == 'hello'):
                 print('Message is hello')
+                
                 self.rtt(msg)
                 
     def _on_message(self, msg):
@@ -96,13 +97,19 @@ class WebSocketClient():
     def rtt(self,msg):
         if (msg == 'hello'):
             print('Inside if')
+            a = self.end_time()
+            """
             endtime=datetime.now().strftime("%f")
             print('\n The value of time is %s' %endtime)
-            diff =  (int(endtime) - int(starttime))
-            if(diff < 0):
-                diff = 100000 + diff
-            rtt = diff/1000
-            print('The rtt is %s ms' %abs(rtt))
+            """
+            rtt =  (float(a) - float(starttime))
+            print('The rtt is %s ms' %rtt)
+            
+    def end_time(self):
+            time.sleep(10)
+            endtime= time.time()
+            print('\n The value of time is %s' %endtime)
+            return endtime
         
     def _on_connection_success(self):
         """This is called on successful connection ot the server.
@@ -132,6 +139,7 @@ class TestWebSocketClient(WebSocketClient):
             deadline, functools.partial(self.send, str(int(time.time()))))
 
     def _on_connection_success(self):
+        self.start_time()
         print('Connected!')
         sqs = boto3.client('sqs', region_name='us-west-2',
                   aws_access_key_id = 'AKIAJNQ4FNHFZP437GIQ',
@@ -175,6 +183,8 @@ class TestWebSocketClient(WebSocketClient):
                WaitTimeSeconds = 0
                )
         response['Messages'] = (response['Messages'] + response1['Messages'] + response2['Messages'])
+        global starttime
+        starttime = datetime.now().strftime("%f")
         for i in range(0,30):
              msg = response['Messages'][i]
              #Spliting string and taking timestamp value
@@ -208,6 +218,9 @@ class TestWebSocketClient(WebSocketClient):
                               "Cur Hum" + str(e) + "%\t" + "\n" + "Min Hum" + str(f) + "%\t" + "\n" + "Last Hum" + str(g) + "%\t" + "\n" + "Max Hum" + str(h) + "%\t" 
                  self._ws_connection.write_message(newmessage)
         self._ws_connection.write_message('Done')
+    def start_time(self):
+        start = time.time()
+        return start
        
 
     def _on_connection_close(self):

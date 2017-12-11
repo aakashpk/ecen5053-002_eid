@@ -3,10 +3,20 @@ import json
 import datetime
 import boto3
 import matplotlib.pyplot as plt
+import mqttcalc
+import client_coap
+import asyncio
+import sqs_pull
+import wsclient
+from wsclient import WebSocketClient, TestWebSocketClient
+from datetime import datetime
+import time
+
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-from wsclient import TestWebSocketClient,WebSocketClient
+
+
 
 def QT():
     global t1
@@ -36,7 +46,7 @@ def QT():
     button2 = QPushButton(tab1)
     button3 = QPushButton(tab1)
     button4 = QPushButton(tab1)
-    button5 = QPushButton(tab1)
+    
     ################### Creating buttons for tab2####################
     b1 = QPushButton(tab2)
     b2 = QPushButton(tab2)
@@ -50,8 +60,7 @@ def QT():
     button3.move(100,100)
     button4.setText("Protocol Test")
     button4.move(100,200)
-    button5.setText("Graphing")
-    button5.move(100,300)
+    
     ################### Button 2 #################################
     b1.setText("Data Request")
     b1.move(300,100)
@@ -64,7 +73,7 @@ def QT():
     button2.clicked.connect(button2_clicked)
     button3.clicked.connect(button3_clicked)
     button4.clicked.connect(button4_clicked)
-    button5.clicked.connect(button5_clicked)
+
     b1.clicked.connect(b1_clicked)
     b2.clicked.connect(b2_clicked)
     b3.clicked.connect(b3_clicked)
@@ -279,81 +288,34 @@ def button3_clicked():
     else:
         t1.setText(len(response['Messages']))
 def button4_clicked():
+    
     print('Execute Protocol Test button is clicked')
-    sqs = boto3.client('sqs', region_name='us-west-2',
-                   aws_access_key_id = 'AKIAJNQ4FNHFZP437GIQ',
-                   aws_secret_access_key = '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')
-    #printing queue url
-
-    url = sqs.get_queue_url(QueueName='proj3_data_sqs')
-    print(url['QueueUrl'])
-    # Receiving messages from SQS queue
-
-    response = sqs.receive_message(
-               QueueUrl =  url['QueueUrl'],
-               AttributeNames= [
-                    'SentTimestamp'
-               ],
-               MaxNumberOfMessages = 10,
-               MessageAttributeNames=[
-                    'All'
-               ],
-               VisibilityTimeout = 0,
-               WaitTimeSeconds = 0
-               )
-    response1 = sqs.receive_message(
-               QueueUrl =  url['QueueUrl'],
-               AttributeNames= [
-                    'SentTimestamp'
-               ],
-               MaxNumberOfMessages = 10,
-               MessageAttributeNames=[
-                    'All'
-               ],
-               VisibilityTimeout = 0,
-               WaitTimeSeconds = 0
-               )
-    response2 = sqs.receive_message(
-               QueueUrl =  url['QueueUrl'],
-               AttributeNames= [
-                    'SentTimestamp'
-               ],
-               MaxNumberOfMessages = 10,
-               MessageAttributeNames=[
-                    'All'
-               ],
-               VisibilityTimeout = 0,
-               WaitTimeSeconds = 0
-               )
-    response['Messages'] = (response['Messages'] + response1['Messages'] + response2['Messages'])
-    for i in range (0,30):
-         message = response['Messages'][i]
-         #Spliting string and taking timestamp value
-         body = response['Messages'][i]['Body']
-         print('\n The body content is %s' %body)
-         x = body.split(",")
-         print('\n The sliced string is %s' %x[0])
-         a = float(x[1])
-         b = float(x[2])
-         c = float(x[3])
-         d = float(x[4])
-         x2 = [(a,b,c,d)]
-         print('\n The Temp list is %s' %x2)
-         x1 = [x[0]]
-         #Got every message now need to transfer these messages using 4 different protocols
-         
+    mq = (mqttcalc.getMqttTime())
+    coap = (asyncio.get_event_loop().run_until_complete(client_coap.coap_response()))
+    web = WebSocketClient()
+    test = TestWebSocketClient()
+    starttime = test.start_time()
+    print('starttime is %s' %starttime)
+    endtime = web.end_time()
+    print('endtime is %s' %endtime)
+    rtt =  (float (endtime) - float(starttime))
+    
+    
+    print('The rtt  of websocket is %s ms' %abs(rtt))
+    
+    
     #Graph functionality with static values
-    rtt1 = 700  #MQTT
-    rtt2 = 40  #Websocket
-    rtt3 = 600 #CoAP
+    rtt1 = mq  #MQTT
+    rtt2 = coap  #Websocket
+    
     rtt4 = 120 #AMQP
     
     #print(' The rtt is %s ms' %q.rtt)
     plt.xlabel('Protocols')
     plt.ylabel('RTT in ms')
     p1 = plt.plot('MQTT',rtt1,'rs')
-    p2 = plt.plot('CoAP',rtt3,'bo')
-    p3 = plt.plot('Websocket',rtt2,'g+')
+    p2 = plt.plot('CoAP',rtt2,'bo')
+    p3 = plt.plot('Websocket',abs(rtt),'g+')
     p4 = plt.plot('AMQP',rtt4,'c*')
     plt.title('Performance analysis')
     plt.grid()
@@ -361,28 +323,7 @@ def button4_clicked():
     plt.legend((p1[0],p2[0],p3[0],p4[0]), ('MQTT','CoAP','WebSocket','AMQP'))
     plt.show()     
 
-def button5_clicked():
-    print('Graphing button is clicked')
-    #Need to include various protocol functionality for Websocket, CoAP, MQTT, AMQP
-    #Call the function to take care
-    #Right now doing, static value format for each of the protocols
-    rtt1 = 700  #MQTT
-    rtt2 = 40  #Websocket
-    rtt3 = 600 #CoAP
-    rtt4 = 120 #AMQP
-    
-    #print(' The rtt is %s ms' %q.rtt)
-    plt.xlabel('Protocols')
-    plt.ylabel('RTT in ms')
-    p1 = plt.plot('MQTT',rtt1,'rs')
-    p2 = plt.plot('CoAP',rtt3,'bo')
-    p3 = plt.plot('Websocket',rtt2,'g+')
-    p4 = plt.plot('AMQP',rtt4,'c*')
-    plt.title('Performance analysis')
-    plt.grid()
-    plt.legend(loc = 'best')
-    plt.legend((p1[0],p2[0],p3[0],p4[0]), ('MQTT','CoAP','WebSocket','AMQP'))
-    plt.show()
+
                
 def b1_clicked():
     print('Pull Data Request button for Humidity is clicked')
