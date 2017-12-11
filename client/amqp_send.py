@@ -4,8 +4,7 @@ import sqs_pull
 from datetime import datetime
 import time
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='192.168.43.189'))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
 starttime=0
@@ -43,7 +42,7 @@ def callback(ch, method, properties, body):
         diff=(1000000+diff)
     
     rtt=(diff)/1000
-    print("AMQP Time Taken",rtt,"mS")
+    print("AMQP Time Taken",rtt,"S")
     connection.close()
     return rtt
     
