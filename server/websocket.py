@@ -13,9 +13,13 @@ class WSHandler(tornado.websocket.WebSocketHandler):
      def open(self):
          print('New Connection')
      def on_message(self, message):
-         print('message received is %s' %message)
-         self.write_message(message)
-         
+         if(message != 'Done'):
+              print('message received is %s' %message)
+              self.write_message(message)
+         if(message == 'Done'):
+              print('Inside Done')
+              print('message received is %s' %message)
+              self.write_message('hello')
      def on_close(self):
          print('connection closed')
      def check_origin(self, origin):
