@@ -10,6 +10,7 @@ import sqs_pull
 import ws_client
 from datetime import datetime
 import time
+import amqp_send
 
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtGui import *
@@ -292,13 +293,14 @@ def button4_clicked():
     mq = (mqttcalc.getMqttTime())
     coap = (asyncio.get_event_loop().run_until_complete(client_coap.coap_response()))
     web = ws_client.WebSocketResponse()
+    amqp=amqp_send.AMQP_test()
            
            
     #Graph functionality with static values
     rtt1 = mq  #MQTT
     rtt2 = coap  #Websocket
     rtt3= web
-    rtt4 = 1 #AMQP
+    rtt4 = amqp #AMQP
     
     #print(' The rtt is %s ms' %q.rtt)
     plt.xlabel('Protocols')
@@ -306,12 +308,12 @@ def button4_clicked():
     p1 = plt.plot('MQTT',rtt1,'rs')
     p2 = plt.plot('CoAP',rtt2,'bo')
     p3 = plt.plot('Websocket',rtt3,'g+')
-    #p4 = plt.plot('AMQP',rtt4,'c*')
+    p4 = plt.plot('AMQP',rtt4,'c*')
     plt.title('Performance analysis')
     plt.grid()
     plt.legend(loc = 'best')
-    plt.legend((p1[0],p2[0],p3[0]), ('MQTT','CoAP','WebSocket'))
-    #plt.legend((p1[0],p2[0],p3[0],p4[0]), ('MQTT','CoAP','WebSocket','AMQP'))
+    #plt.legend((p1[0],p2[0],p3[0]), ('MQTT','CoAP','WebSocket'))
+    plt.legend((p1[0],p2[0],p3[0],p4[0]), ('MQTT','CoAP','WebSocket','AMQP'))
     plt.show()     
 
 
