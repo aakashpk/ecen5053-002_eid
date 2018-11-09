@@ -21,29 +21,32 @@
 import sys
 import json
 import datetime
-import Adafruit_DHT
+#import Adafruit_DHT
 import boto3
 import matplotlib.pyplot as plt
-from PyQt4 import QtGui, QtCore
-from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+from PyQt5 import QtGui, QtCore , QtWidgets
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+import sqs_pull
+#QMainWindow, QApplication, QPushButton, QWidget, QAction, QTabWidget,QVBoxLayout
 
 def QT():
     global t1
     ##### Creating an object for the application ################
     app = QApplication(sys.argv)
     ####### Declaring Tabs ########################################
-    tabs = QtGui.QTabWidget()
-    tab1 = QtGui.QWidget()
-    tab2 = QtGui.QWidget()
+    tabs = QtWidgets.QTabWidget()
+    tab1 = QtWidgets.QWidget()
+    tab2 = QtWidgets.QWidget()
     tabs.resize (1700, 1700)
     ####### Setting a Window Title ################################
     tabs.setWindowTitle("Temperature and Humidity")
     ######  Creating Vertical Box layout for tab1  ################
-    vBoxlayout = QtGui.QVBoxLayout()
+    vBoxlayout = QtWidgets.QVBoxLayout()
     tab1.setLayout(vBoxlayout)
     ####### Creating Vertical Box Layout for tab2  ################
-    vBoxlayout = QtGui.QVBoxLayout()
+    vBoxlayout = QtWidgets.QVBoxLayout()
     tab2.setLayout(vBoxlayout)
     ######## Adding names for tab1 and tab2 ########################
     tabs.addTab(tab1,"Temperature")
@@ -80,53 +83,9 @@ def QT():
     sys.exit(app.exec_())
 
 def button1_clicked():
-    print('Pull Data Request button for Temperature is clicked')
-    sqs = boto3.client('sqs', region_name='us-west-2',
-                   aws_access_key_id = 'AKIAJNQ4FNHFZP437GIQ',
-                   aws_secret_access_key = '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')
-    #printing queue url
-
-    url = sqs.get_queue_url(QueueName='proj3_data_sqs')
-    print(url['QueueUrl'])
-    # Receiving messages from SQS queue
-
-    response = sqs.receive_message(
-               QueueUrl =  url['QueueUrl'],
-               AttributeNames= [
-                    'SentTimestamp'
-               ],
-               MaxNumberOfMessages = 10,
-               MessageAttributeNames=[
-                    'All'
-               ],
-               VisibilityTimeout = 0,
-               WaitTimeSeconds = 0
-               )
-    response1 = sqs.receive_message(
-               QueueUrl =  url['QueueUrl'],
-               AttributeNames= [
-                    'SentTimestamp'
-               ],
-               MaxNumberOfMessages = 10,
-               MessageAttributeNames=[
-                    'All'
-               ],
-               VisibilityTimeout = 0,
-               WaitTimeSeconds = 0
-               )
-    response2 = sqs.receive_message(
-               QueueUrl =  url['QueueUrl'],
-               AttributeNames= [
-                    'SentTimestamp'
-               ],
-               MaxNumberOfMessages = 10,
-               MessageAttributeNames=[
-                    'All'
-               ],
-               VisibilityTimeout = 0,
-               WaitTimeSeconds = 0
-               )
-    response['Messages'] = (response['Messages'] + response1['Messages'] + response2['Messages'])
+    
+    response['Messages']=sqs_pull.getSqsQueue()
+    
     for i in range (0,30):
          message = response['Messages'][i]
          #Spliting string and taking timestamp value
