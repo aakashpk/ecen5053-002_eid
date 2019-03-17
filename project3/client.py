@@ -115,11 +115,13 @@ def button1_clicked():
     plt.annotate('Data Retrieval rate is %s' %d, (0,0),(0,-100), xycoords='axes fraction', textcoords='offset points',va ='top')
     plt.gcf().autofmt_xdate()
     plt.show()
+
+    #TODO: remove secret key from code and pick from config files.
 def button2_clicked():
     print('CtoF is clicked')
     sqs = boto3.client('sqs', region_name='us-west-2',
-                   aws_access_key_id = 'AKIAJNQ4FNHFZP437GIQ',
-                   aws_secret_access_key = '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')
+                   aws_access_key_id = 'access-key',
+                   aws_secret_access_key = 'secret-key')
     #printing queue url
 
     url = sqs.get_queue_url(QueueName='proj3_data_sqs')

@@ -35,7 +35,7 @@ window = QDialog()
 ui = Ui_MainWindow()
 ui.setupUi(window)
 
-sg = sendgrid.SendGridAPIClient(apikey='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') #Setting up sendgrid API key for alerts
+sg = sendgrid.SendGridAPIClient(apikey='send_grid_key-here') #Setting up sendgrid API key for alerts
 
 
 for phCo in phoneCompanies: #adding all phone companies into the Qcombobox

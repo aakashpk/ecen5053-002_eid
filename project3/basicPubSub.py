@@ -39,7 +39,7 @@ def customCallback(client, userdata, message):
 	#print("--------------\n\n")
 
 #Paths for certificates
-host = 'a3c1qeo00yd0b1.iot.us-west-2.amazonaws.com' 
+host = 'aws-client-id' 
 rootCAPath = 'root-CA.crt' 
 certificatePath = 'raspberry-pi.cert.pem' 
 privateKeyPath = 'raspberry-pi.private.key' 
